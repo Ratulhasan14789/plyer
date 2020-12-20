@@ -19,6 +19,7 @@ Android, iOS, Windows, OS X, Linux
 
 '''
 
+from os import name as os_name # to get os name
 
 class TTS:
     '''
@@ -36,4 +37,8 @@ class TTS:
     # private
 
     def _speak(self, **kwargs):
-        raise NotImplementedError()
+        if os_name=='nt': # if windows
+            import _win_tts
+            _win_tts.speak(kwargs['message'])
+        else:
+            raise NotImplementedError()
